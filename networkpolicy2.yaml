@@ -1,0 +1,15 @@
+# networkpolicy2.yaml
+kind: NetworkPolicy
+apiVersion: networking.k8s.io/v1
+metadata:
+  name: web-allow-ping
+spec: 
+ podSelector:
+  matchLabels:
+   app: busybox1
+ ingress:
+  - from:
+    - podSelector:
+        matchLabels:
+          app: busybox2
+

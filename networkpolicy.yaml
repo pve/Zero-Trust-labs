@@ -1,0 +1,16 @@
+# networkpolicy.yaml
+kind: NetworkPolicy
+apiVersion: networking.k8s.io/v1
+metadata:
+ name: web-deny-all
+spec: 
+ podSelector:
+  matchLabels:
+   app: busybox1
+ ingress: []
+
+ # This NetworkPolicy is designed to deny all incoming network traffic to pods labeled with 
+ # `app: busybox1` within the same Kubernetes namespace. 
+ # By specifying an empty `ingress` list (`ingress: []`), 
+ # the policy explicitly blocks all ingress traffic because no rules are allowing any traffic through. 
+ # This is known as a "deny-all" policy for incoming traffic.
