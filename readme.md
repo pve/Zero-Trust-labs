@@ -2,7 +2,7 @@
 
 Objective: to demonstrate how Cilium and network policies reduce network traffic
 
-Prerequisites: Digital Ocean account.
+Prerequisites: Digital Ocean account, or other with Cilum baked in.
 
 ## Create a Kubernetes cluster
 
@@ -10,16 +10,20 @@ Create a Kubernetes cluster on Digital Ocean.
 
 This is likely to include Cilium as the default CNI (Containter Network Interface).
 
-export KUBECONFIG=k8s-1-31-1-do-5-ams3-1735750671919-kubeconfig.yaml
+```zsh
+setopt interactivecomments
+# to allow # as comment interactively.
+export KUBECONFIG=kubeconfig.yaml
 
+# do we have a cluster?
 kubectl get nodes
+```
 
 ## Deploy a simple application
 
 We'll deploy to simple containers in which we can run a network ping. Note that we label the containers.
 
 ```bash
-export KUBECONFIG=kubeconfig.yaml
 kubectl run busybox1 --image=busybox --labels app=busybox1 -- sleep 3600
 kubectl run busybox2 --image=busybox --labels app=busybox2 -- sleep 3600
 
@@ -46,3 +50,6 @@ kubectl create -f networkpolicy.yaml
 
 Retry the ping above.
 
+## Your turn
+
+Now make a policy that allows ping to work from the other container only.
