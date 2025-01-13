@@ -23,7 +23,7 @@ kubectl get nodes
 
 We'll deploy to simple containers in which we can run a network ping. Note that we label the containers.
 
-```bash
+```zsh
 kubectl run busybox1 --image=busybox --labels app=busybox1 -- sleep 3600
 kubectl run busybox2 --image=busybox --labels app=busybox2 -- sleep 3600
 
@@ -42,7 +42,7 @@ kubectl exec -ti busybox2 -- ping -c3 <ip address>
 
 ## Create network policies
 
-```bash
+```zsh
 kubectl create -f networkpolicy.yaml
 ```
 
@@ -53,3 +53,10 @@ Retry the ping above.
 ## Your turn
 
 Now make a policy that allows ping to work from the other container only.
+
+## Cleanup
+
+```zsh
+kubectl delete pod busybox1 busybox2
+kubectl delete -f networkpolicy.yaml
+```
